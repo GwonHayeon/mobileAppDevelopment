@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Soccer Game',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Hot Reload Demo'),
+      home: const MyHomePage(title: 'Soccer Game'),
     );
   }
 }
@@ -55,39 +55,50 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _yourScore = 0;
+  int _rivalScore = 0;
+  int _win = 0;
+  int _lose = 0;
+  int _draw=0;
 
-  void _incrementCounter() {
+  void _yourTeamWin() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _yourScore++;
     });
   }
-  void _decrementCounter() {
+  void _rivalTeamWin() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter--;
+      _rivalScore++;
+    });
+  }
+  void _resetGame() {
+    setState(() {
+      _rivalScore=0;
+      _yourScore = 0;
     });
   }
 
-  void _refreshCounter(){
+  void _gameOver() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter=0;
+      if(_yourScore > _rivalScore) _win++;
+      else if(_yourScore < _rivalScore) _lose++;
+      else if(_yourScore ==_rivalScore) _draw++;
+      _yourScore = 0;
+      _rivalScore = 0;
     });
   }
+
+  void _refreshGame() {
+    setState(() {
+      _yourScore = 0;
+      _rivalScore = 0;
+      _win = 0;
+      _lose = 0;
+      _draw=0;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -126,41 +137,61 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 50.0),
-              padding: EdgeInsets.all(5.0),
-              decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.25),
-                borderRadius: BorderRadius.circular(20.0),
-              ),
+              padding: EdgeInsets.only(bottom: 10),
               child: const Image(
                 image: AssetImage(
-                  'assets/flutter.png'
+                    'assets/soccer-1.png'
                 ),
-                width: 200.0,
+                width: 130.0,
               ),
             ),
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            ElevatedButton(onPressed: _resetGame, child: const Text('Reset Game')),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed: _incrementCounter, child: const Text('Increment')),
-                ElevatedButton(onPressed: _decrementCounter, child: const Text('Decrement'))
+                Column(
+                  children: [
+                    Text('Your Team', style: TextStyle(fontSize: 20),),
+                    Text('$_yourScore', style: TextStyle(fontSize: 40),),
+                    ElevatedButton(onPressed: _yourTeamWin, child: const Text('Goal')),
+                  ],
+                ),
+                Text(':', style: TextStyle(fontSize: 40),),
+                Column(
+                  children: [
+                    Text('Your Rival', style: TextStyle(fontSize: 20),),
+                    Text('$_rivalScore', style: TextStyle(fontSize: 40),),
+                    ElevatedButton(onPressed: _rivalTeamWin, child: const Text('Goal')),
+                  ],
+                ),
               ],
+            ),
+            ElevatedButton(onPressed: _gameOver, child: const Text('Game Over')),
+            Container(
+              padding: EdgeInsets.only(top:10,bottom: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Set Score', style: TextStyle(fontSize: 40),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text('Win: $_win', style: TextStyle(fontSize: 25),),
+                      Text('Draw: $_draw', style: TextStyle(fontSize: 25),),
+                      Text('Lose: $_lose', style: TextStyle(fontSize: 25),),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _refreshCounter,
-        tooltip: 'Increment',
+        onPressed: _refreshGame,
         child: const Icon(Icons.refresh),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
