@@ -39,34 +39,106 @@ class MyHomePage extends StatelessWidget {
           IconButton(onPressed: (){}, icon: Icon(Icons.add))
         ],
       ),
-      body: Stack( //Column대신 Stack을 쓰면 겹쳐짐
-        alignment: Alignment.centerLeft, //stack의 property. 앞에거가 세로 뒤가 가로거
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // crossAxisAlignment: CrossAxisAlignment.center,
+      body: ListView(
+        scrollDirection: Axis.vertical,
         children: [
-          Container(
-            color:Colors.red,
-            width:100.0,
-            height: 100.0,
-            padding: EdgeInsets.all(8.0),
-            margin: EdgeInsets.all(10.0), //바깥여백
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
           ),
-          Container(
-            color:Colors.blue,
-            width:80.0,
-            height: 80.0,
-            padding: EdgeInsets.all(8.0),
-            margin: EdgeInsets.all(10.0), //바깥여백
+          ListTile(
+            leading: Icon(Icons.calendar_month),
+            title: Text('Calendar'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
           ),
-          Container(
-            color:Colors.green,
-            width:60.0,
-            height: 60.0,
-            padding: EdgeInsets.all(8.0),
-            margin: EdgeInsets.all(10.0), //바깥여백
+          ListTile(
+            leading: Icon(Icons.camera),
+            title: Text('Camera'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.calendar_month),
+            title: Text('Calendar'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.camera),
+            title: Text('Camera'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.calendar_month),
+            title: Text('Calendar'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.camera),
+            title: Text('Camera'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.calendar_month),
+            title: Text('Calendar'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.camera),
+            title: Text('Camera'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.calendar_month),
+            title: Text('Calendar'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.camera),
+            title: Text('Camera'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
           ),
         ],
       ),
+      // body: SingleChildScrollView(
+      //   child: ListBody( //Column으로 하게되면 해당부분만 끌리는데 이걸로 하면 전체화면 스크롤 가능
+      //     children: items.map((i) => Text('$i')).toList(),
+      //   ),
+      // ),
       drawer: Drawer(),//Scaffold의 property
     );
   }
