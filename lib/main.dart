@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'First Flutter App',
       theme: ThemeData(
         primaryColor: Colors.blue, //기본으로 blue로 설정. 이것만 바꾼다고 해서 색이 바뀌지않음
-        primarySwatch: Colors.blue, //이것까지 해줘야함
+        primarySwatch: Colors.purple, //이것까지 해줘야함
         //color custormaize
 
         fontFamily: 'Pretendard',
@@ -54,19 +54,12 @@ class MyHomePage extends StatelessWidget {
         ),
         body: TabBarView(children: [
           Tab(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              elevation: 4.0,
-              child: Container(
-                width: 100,
-                height: 100,
-                child: Center(
-                  child: Text('text'),
-                ),
-              ),
-            ),
+            child: LinearProgressIndicator(
+              //IconButton, TextButton, elevaluationButton, FloatingActionButton
+              //CircularProgressIndicator : 로딩중
+              // onPressed: (){},
+              // child: Icon(Icons.add),
+            )
           ),
           Container(
             color: Colors.green,
