@@ -51,11 +51,33 @@ class MyHomePage extends StatelessWidget {
         body: TabBarView(
           children : [
             Tab(
-              child: Padding(
-                padding: const EdgeInsets.only(left:10, right:20),
-                child: Container(
-                  color: Colors.red,
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      color: Colors.red,
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      color: Colors.green,
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      color: Colors.blue,
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                ],
               ),
             ),
             Container(
