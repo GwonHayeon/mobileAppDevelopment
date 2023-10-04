@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'style.dart';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 
@@ -10,7 +10,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( //const제거
+    return MaterialApp(
+      //const제거
       title: 'First Flutter App',
       theme: ThemeData(
         primaryColor: Colors.blue, //기본으로 blue로 설정. 이것만 바꾼다고 해서 색이 바뀌지않음
@@ -26,74 +27,61 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
-  final items = List.generate(100, (index)=> index).toList();
+
+  final items = List.generate(100, (index) => index).toList();
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController( //탭바 쓰려면 이걸로 감싸줘야함
+    return DefaultTabController(
+      //탭바 쓰려면 이걸로 감싸줘야함
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColor.Malachite,
-          title: const Text('Flutter Demo'), //const를 붙이냐 마느냐는 성능상의 문제. 불필요한 리밴더링 하지 않게 되기때문에 성능이 좋아진다
+          title: const Text('Flutter Demo'),
+          //const를 붙이냐 마느냐는 성능상의 문제. 불필요한 리밴더링 하지 않게 되기때문에 성능이 좋아진다
           // leading: Icon(Icons.add),
-          actions: [
-            IconButton(onPressed: (){}, icon: Icon(Icons.add))
-          ],
+          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.add))],
           bottom: const TabBar(
             tabs: [
-              Tab(icon:Icon(Icons.tag_faces)),
-              Tab(text: "Menu",),
-              Tab(icon:Icon(Icons.info), text: "Info"),
+              Tab(icon: Icon(Icons.tag_faces)),
+              Tab(
+                text: "Menu",
+              ),
+              Tab(icon: Icon(Icons.info), text: "Info"),
             ],
           ),
         ),
-        body: TabBarView(
-          children : [
-            Tab(
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      color: Colors.red,
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.green,
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      color: Colors.blue,
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                ],
+        body: TabBarView(children: [
+          Tab(
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              elevation: 4.0,
+              child: Container(
+                width: 100,
+                height: 100,
+                child: Center(
+                  child: Text('text'),
+                ),
               ),
             ),
-            Container(
-              color: Colors.green,
-            ),
-            Container(
-              color: Colors.blue,
-            ),
-          ]
-        ),
-        drawer: Drawer(),//Scaffold의 property
+          ),
+          Container(
+            color: Colors.green,
+          ),
+          Container(
+            color: Colors.blue,
+          ),
+        ]),
+        drawer: Drawer(), //Scaffold의 property
         bottomNavigationBar: BottomNavigationBar(
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label:"Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label:"Profile"),
-            BottomNavigationBarItem(icon: Icon(Icons.notifications), label:"Notifications"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.notifications), label: "Notifications"),
           ],
         ),
       ),
