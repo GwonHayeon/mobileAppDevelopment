@@ -39,106 +39,125 @@ class MyHomePage extends StatelessWidget {
           IconButton(onPressed: (){}, icon: Icon(Icons.add))
         ],
       ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+      body: GridView.count(
+          crossAxisCount: 3,
+        children : [
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.calendar_month),
-            title: Text('Calendar'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.camera),
-            title: Text('Camera'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.calendar_month),
-            title: Text('Calendar'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.camera),
-            title: Text('Camera'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.calendar_month),
-            title: Text('Calendar'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.camera),
-            title: Text('Camera'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.calendar_month),
-            title: Text('Calendar'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.camera),
-            title: Text('Camera'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.calendar_month),
-            title: Text('Calendar'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.camera),
-            title: Text('Camera'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
           ),
-        ],
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
+          ),
+        ]
       ),
-      // body: SingleChildScrollView(
-      //   child: ListBody( //Column으로 하게되면 해당부분만 끌리는데 이걸로 하면 전체화면 스크롤 가능
-      //     children: items.map((i) => Text('$i')).toList(),
-      //   ),
-      // ),
       drawer: Drawer(),//Scaffold의 property
     );
   }
