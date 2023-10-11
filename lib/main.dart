@@ -12,71 +12,40 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //const제거
-      title: 'First Flutter App',
+      title: 'Receive User Information',
       theme: ThemeData(
-        primaryColor: Colors.blue, //기본으로 blue로 설정. 이것만 바꾼다고 해서 색이 바뀌지않음
-        primarySwatch: Colors.purple, //이것까지 해줘야함
-        //color custormaize
-
-        fontFamily: 'Pretendard',
+        primarySwatch: Colors.deepPurple, //이것까지 해줘야함
       ),
       home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
-
-  final items = List.generate(100, (index) => index).toList();
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
   @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  bool _isChecked = false;
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      //탭바 쓰려면 이걸로 감싸줘야함
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColor.Malachite,
-          title: const Text('Flutter Demo'),
-          //const를 붙이냐 마느냐는 성능상의 문제. 불필요한 리밴더링 하지 않게 되기때문에 성능이 좋아진다
-          // leading: Icon(Icons.add),
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.add))],
-          bottom: const TabBar(
-            tabs: [
-              Tab(icon: Icon(Icons.tag_faces)),
-              Tab(
-                text: "Menu",
-              ),
-              Tab(icon: Icon(Icons.info), text: "Info"),
-            ],
-          ),
-        ),
-        body: TabBarView(children: [
-          Tab(
-            child: LinearProgressIndicator(
-              //IconButton, TextButton, elevaluationButton, FloatingActionButton
-              //CircularProgressIndicator : 로딩중
-              // onPressed: (){},
-              // child: Icon(Icons.add),
-            )
-          ),
-          Container(
-            color: Colors.green,
-          ),
-          Container(
-            color: Colors.blue,
-          ),
-        ]),
-        drawer: Drawer(), //Scaffold의 property
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.notifications), label: "Notifications"),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Receive User Information"),
+      ),
+      body : Checkbox(
+        value: _isChecked,
+        onChanged: (value){ //체크박스를 누르면 true가 되므로 아래를 수행한다
+            setState(() { //다시 그려주는 함수. setState가 없다면 상태가 변하지 않는다
+              // bool ? vlaue => null, true, false 세가지 속성을 가짐
+             _isChecked = value!; // !를 쓰는 이유는 NullSafety 때문 (not null) 이값이 null일 수도 있다면 !를 붙이면 안됨
+             print(_isChecked);
+             print(value);
+          });
+        },
       ),
     );
   }
