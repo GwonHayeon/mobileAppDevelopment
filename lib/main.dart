@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
-import 'style.dart';
+
+enum Language{cpp, python, dart}
 
 void main() {
   runApp(MyApp());
@@ -29,9 +30,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isChecked = false;
-  bool _isChecked2 = false;
-  bool _isChecked3 = false;
+  Language _language = Language.cpp;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,33 +40,36 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body : ListView(
         children: [
-          SwitchListTile(
-            title : Text("Test"),
-            value: _isChecked,
-            onChanged: (value){ //체크박스를 누르면 true가 되므로 아래를 수행한다
-                setState(() { //다시 그려주는 함수. setState가 없다면 상태가 변하지 않는다
-                  // bool ? vlaue => null, true, false 세가지 속성을 가짐
-                 _isChecked = value!;
+          RadioListTile(
+            //무조건 하나를 선택해야함
+            //Group value가 존재
+            //Group value중 어느것인지 value를 가짐 (isChecked의 개념과 조금 다름)
+            title: Text('C++'),
+            value: Language.cpp,
+            groupValue: _language,
+            onChanged: (value){
+              setState(() {
+                _language = value!;
               });
             },
           ),
-          CheckboxListTile(
-            title : Text("Test2"),
-            value: _isChecked2,
-            onChanged: (value){ //체크박스를 누르면 true가 되므로 아래를 수행한다
-              setState(() { //다시 그려주는 함수. setState가 없다면 상태가 변하지 않는다
-                // bool ? vlaue => null, true, false 세가지 속성을 가짐
-                _isChecked2 = value!;
+          RadioListTile(
+            title: Text('Python'),
+            value: Language.python,
+            groupValue: _language,
+            onChanged: (value){
+              setState(() {
+                _language = value!;
               });
             },
           ),
-          CheckboxListTile(
-            title : Text("Test3"),
-            value: _isChecked3,
-            onChanged: (value){ //체크박스를 누르면 true가 되므로 아래를 수행한다
-              setState(() { //다시 그려주는 함수. setState가 없다면 상태가 변하지 않는다
-                // bool ? vlaue => null, true, false 세가지 속성을 가짐
-                _isChecked3 = value!;
+          RadioListTile(
+            title: Text('Dart'),
+            value: Language.dart,
+            groupValue: _language,
+            onChanged: (value){
+              setState(() {
+                _language = value!;
               });
             },
           ),
