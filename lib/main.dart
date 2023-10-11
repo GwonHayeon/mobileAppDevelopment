@@ -30,7 +30,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Language _language = Language.cpp;
+  final _valueList = List.generate(10, (i) => 'Student $i');
+  var _selectedValue = 'Student 0';
 
   @override
   Widget build(BuildContext context) {
@@ -38,42 +39,19 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Receive User Information"),
       ),
-      body : ListView(
-        children: [
-          RadioListTile(
-            //무조건 하나를 선택해야함
-            //Group value가 존재
-            //Group value중 어느것인지 value를 가짐 (isChecked의 개념과 조금 다름)
-            title: Text('C++'),
-            value: Language.cpp,
-            groupValue: _language,
-            onChanged: (value){
-              setState(() {
-                _language = value!;
-              });
-            },
-          ),
-          RadioListTile(
-            title: Text('Python'),
-            value: Language.python,
-            groupValue: _language,
-            onChanged: (value){
-              setState(() {
-                _language = value!;
-              });
-            },
-          ),
-          RadioListTile(
-            title: Text('Dart'),
-            value: Language.dart,
-            groupValue: _language,
-            onChanged: (value){
-              setState(() {
-                _language = value!;
-              });
-            },
-          ),
-        ],
+      body : Center(
+        child: DropdownButton(
+          value: _selectedValue,
+          items: _valueList.map(
+              (student) => DropdownMenuItem(
+                  value : student,
+                  child: Text(student))).toList(),
+          onChanged: (value){
+            setState(() {
+              _selectedValue = value!; //_selectedValue에는 리스트값이 들어간다
+            });
+          },
+        ),
       ),
     );
   }
