@@ -30,22 +30,47 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _isChecked = false;
+  bool _isChecked2 = false;
+  bool _isChecked3 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Receive User Information"),
       ),
-      body : Checkbox(
-        value: _isChecked,
-        onChanged: (value){ //체크박스를 누르면 true가 되므로 아래를 수행한다
-            setState(() { //다시 그려주는 함수. setState가 없다면 상태가 변하지 않는다
-              // bool ? vlaue => null, true, false 세가지 속성을 가짐
-             _isChecked = value!; // !를 쓰는 이유는 NullSafety 때문 (not null) 이값이 null일 수도 있다면 !를 붙이면 안됨
-             print(_isChecked);
-             print(value);
-          });
-        },
+      body : ListView(
+        children: [
+          SwitchListTile(
+            title : Text("Test"),
+            value: _isChecked,
+            onChanged: (value){ //체크박스를 누르면 true가 되므로 아래를 수행한다
+                setState(() { //다시 그려주는 함수. setState가 없다면 상태가 변하지 않는다
+                  // bool ? vlaue => null, true, false 세가지 속성을 가짐
+                 _isChecked = value!;
+              });
+            },
+          ),
+          CheckboxListTile(
+            title : Text("Test2"),
+            value: _isChecked2,
+            onChanged: (value){ //체크박스를 누르면 true가 되므로 아래를 수행한다
+              setState(() { //다시 그려주는 함수. setState가 없다면 상태가 변하지 않는다
+                // bool ? vlaue => null, true, false 세가지 속성을 가짐
+                _isChecked2 = value!;
+              });
+            },
+          ),
+          CheckboxListTile(
+            title : Text("Test3"),
+            value: _isChecked3,
+            onChanged: (value){ //체크박스를 누르면 true가 되므로 아래를 수행한다
+              setState(() { //다시 그려주는 함수. setState가 없다면 상태가 변하지 않는다
+                // bool ? vlaue => null, true, false 세가지 속성을 가짐
+                _isChecked3 = value!;
+              });
+            },
+          ),
+        ],
       ),
     );
   }
