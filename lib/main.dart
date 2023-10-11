@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-enum Language{cpp, python, dart}
+enum Language { cpp, python, dart }
 
 void main() {
   runApp(MyApp());
@@ -30,8 +30,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _valueList = List.generate(10, (i) => 'Student $i');
-  var _selectedValue = 'Student 0';
+  final _heightController = TextEditingController();
+  final _weightController = TextEditingController();
+  String _obesity = "Normal";
+
+  void dispose() {
+    //위젯이 사라졌을때 수행되는 함수
+    _heightController.dispose();
+    _weightController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,18 +47,54 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Receive User Information"),
       ),
-      body : Center(
-        child: DropdownButton(
-          value: _selectedValue,
-          items: _valueList.map(
-              (student) => DropdownMenuItem(
-                  value : student,
-                  child: Text(student))).toList(),
-          onChanged: (value){
-            setState(() {
-              _selectedValue = value!; //_selectedValue에는 리스트값이 들어간다
-            });
-          },
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Height',
+                ),
+                controller: _heightController,
+                keyboardType: TextInputType.number, //키보드 타임 숫자로하기
+              ),
+              Container(
+                height: 20,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Weight',
+                ),
+                controller: _weightController,
+              ),
+              Container(
+                height: 20,
+              ),
+              Text(
+                _obesity,
+                style: TextStyle(fontSize: 20),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    //아무것도 넣지 않으면 그냥 다시 그리기만한다
+                    var heightValue = double.parse(_heightController.text.trim());
+                    var weightValue = double.parse(_weightController.text.trim());
+                    if (weightValue/(heightValue * heightValue) > 25){
+                      _obesity = "Obesity";
+                    } else{
+                      _obesity = "Normal";
+                    }
+                  });
+                },
+                child: Text("Enter"),
+              )
+            ],
+          ),
         ),
       ),
     );
