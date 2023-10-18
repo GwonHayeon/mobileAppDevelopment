@@ -1,3 +1,4 @@
+import 'dart:math';
 import "package:flutter/material.dart";
 
 enum Language { cpp, python, dart }
@@ -7,7 +8,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       //const제거
       title: 'Receive User Information',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple, //이것까지 해줘야함
+        primarySwatch: Colors.purple, //이것까지 해줘야함
       ),
       home: MyHomePage(),
     );
@@ -23,80 +24,79 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+
+  MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _heightController = TextEditingController();
-  final _weightController = TextEditingController();
-  String _obesity = "Normal";
-
-  void dispose() {
-    //위젯이 사라졌을때 수행되는 함수
-    _heightController.dispose();
-    _weightController.dispose();
-    super.dispose();
-  }
-
+  List<Widget> myTiles = [
+    Padding(
+      key: UniqueKey(),
+      padding: const EdgeInsets.all(8.0),
+      child: MyTile(),
+    ),
+    Padding(
+      key: UniqueKey(),
+      padding: const EdgeInsets.all(8.0),
+      child: MyTile(),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Receive User Information"),
+        title: Text("My Home Page"),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.add,
+              ))
+        ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Height',
-                ),
-                controller: _heightController,
-                keyboardType: TextInputType.number, //키보드 타임 숫자로하기
-              ),
-              Container(
-                height: 20,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Weight',
-                ),
-                controller: _weightController,
-              ),
-              Container(
-                height: 20,
-              ),
-              Text(
-                _obesity,
-                style: TextStyle(fontSize: 20),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    //아무것도 넣지 않으면 그냥 다시 그리기만한다
-                    var heightValue = double.parse(_heightController.text.trim());
-                    var weightValue = double.parse(_weightController.text.trim());
-                    if (weightValue/(heightValue * heightValue) > 25){
-                      _obesity = "Obesity";
-                    } else{
-                      _obesity = "Normal";
-                    }
-                  });
-                },
-                child: Text("Enter"),
-              )
-            ],
-          ),
-        ),
+      body: Row(
+        children: myTiles,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.swap_calls),
+        onPressed: (){
+          setState(() {
+            myTiles.insert(1, myTiles.removeAt(0));
+          });
+        },
       ),
     );
+  }
+}
+
+class MyTile extends StatefulWidget {
+  MyTile({Key? key}) : super(key:key);
+
+  @override
+  State<MyTile> createState() => _MyTileState();
+}
+
+class _MyTileState extends State<MyTile> {
+  final Color myColor = UniqueColorGenerator.getColor();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      height: 100,
+      color: myColor,
+    );
+  }
+}
+
+class UniqueColorGenerator {
+  static Random random = Random();
+
+  static Color getColor() {
+    return Color.fromARGB(
+        255, random.nextInt(255), random.nextInt(255), random.nextInt(255));
   }
 }
