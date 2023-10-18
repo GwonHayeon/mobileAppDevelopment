@@ -30,9 +30,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List items = List.generate(20, (i) => i);
   @override
   Widget build(BuildContext context) {
-    List items = List.generate(20, (i) => i);
     return Scaffold(
         appBar: AppBar(
           title: const Text("My Home Page"),
@@ -47,20 +47,30 @@ class _MyHomePageState extends State<MyHomePage> {
         body: ReorderableListView.builder(
             itemCount: items.length,
             itemBuilder:(c,i){
-              return ListTile(
+              return Dismissible(
+                background: Container(color: Colors.green,),
                 key: ValueKey(items[i]),
-                title: Text("Student ${items[i]}"),
-                leading : const Icon(Icons.home),
-                trailing: const Icon(Icons.navigate_next),
+                child: ListTile(
+                  title: Text("Student ${items[i]}"),
+                  leading : const Icon(Icons.home),
+                  trailing: const Icon(Icons.navigate_next),
+                ),
+                onDismissed: (direction){
+                  setState(() {
+                    items.removeAt(i);
+                    print(items);
+                  });
+                },
               );
             },
-          onReorder: (int oldIndex, int newIndex){
-              setState(() {
-                if(oldIndex < newIndex){
-                  newIndex -= 1;
-                }
-                items.insert(newIndex, items.removeAt(oldIndex));
-              });
+            onReorder: (int oldIndex, int newIndex){
+                setState(() {
+                  if(oldIndex < newIndex){
+                    newIndex -= 1;
+                  }
+                  items.insert(newIndex, items.removeAt(oldIndex));
+                  print(items);
+                });
           },
         )
     );
