@@ -18,7 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple, //이것까지 해줘야함
       ),
-      home: MyHomePage(),
+      initialRoute: '/', //'/'는 home임
+      routes: {
+        '/' : (context) => const MyHomePage(),
+        '/result' : (context) => const ResultPage(),
+        '/grade' : (context) => const GradePage(),
+      },
     );
   }
 }
@@ -73,9 +78,10 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
-  StudentResult studentResult = StudentResult(0, 0, 0, -1, true);
-
   final _formKey = GlobalKey<FormState>();
+  StudentResult studentResult = StudentResult(0, 0, 0, -1, true);
+  String grade = '';
+
   final _midtermController = TextEditingController();
   final _finalController = TextEditingController();
   String _grade = " ";
@@ -214,14 +220,31 @@ class _MyFormState extends State<MyForm> {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("processing data")));
                         _formKey.currentState!.save();
+                        studentResult.computeSum();
                         //Routing
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ResultPage()),
-                        );
+                        Navigator.pushNamed(context, '/result', arguments: studentResult);
                       }
                     });
-                  })
+                  }),
+              ElevatedButton(
+                  child: const Text('Grade'),
+                  onPressed: () {
+                    setState(() {
+                      if (_formKey.currentState!.validate()) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("processing data")));
+                        _formKey.currentState!.save();
+                        studentResult.computeSum();
+                        if(studentResult.totalPoint! >= 60){
+                          grade = 'A';
+                        }else {
+                          grade = 'B';
+                        }
+                        //Routing
+                        Navigator.pushNamed(context, '/grade', arguments: grade);
+                      }
+                    });
+                  }),
             ],
           )),
     );
@@ -229,13 +252,16 @@ class _MyFormState extends State<MyForm> {
 }
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
+  const ResultPage({super.key, this.result});
+
+  final StudentResult? result; //null을 받을 수도 있다
 
   @override
   Widget build(BuildContext context) {
+    final result = ModalRoute.of(context)?.settings.arguments as StudentResult;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Grade Calculator"),
+        title: const Text("Grade Calculator"),
         actions: [
           IconButton(
             onPressed: () {},
@@ -247,18 +273,19 @@ class ResultPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Total Sum',
               style: TextStyle(
                 fontSize: 30,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            const Text(
-              '0',
-              style: TextStyle(
+            Text(
+              '${result.totalPoint}',
+              //'${result?.totalPoint}',
+              style: const TextStyle(
                 fontSize: 50,
               ),
             ),
@@ -266,7 +293,62 @@ class ResultPage extends StatelessWidget {
               height: 20,
             ),
             ElevatedButton(
-              child: Text('Insert Again'),
+              child: const Text('Insert Again'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+class GradePage extends StatelessWidget {
+  const GradePage({super.key, this.result});
+
+  final StudentResult? result; //null을 받을 수도 있다
+
+  @override
+  Widget build(BuildContext context) {
+    final grade = ModalRoute.of(context)?.settings.arguments as String;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Grade"),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.add),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Grade',
+              style: TextStyle(
+                fontSize: 30,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              grade,
+              //'${result?.totalPoint}',
+              style: const TextStyle(
+                fontSize: 50,
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              child: const Text('Insert Again'),
               onPressed: () {
                 Navigator.pop(context);
               },
