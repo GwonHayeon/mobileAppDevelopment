@@ -1,21 +1,22 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-enum Language { cpp, python, dart }
-
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //const제거
-      title: 'Receive User Information',
+      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple, //이것까지 해줘야함
+        primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
     );
@@ -23,79 +24,46 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _heightController = TextEditingController();
-  final _weightController = TextEditingController();
-  String _obesity = "Normal";
+  int _counter = 0;
 
-  void dispose() {
-    //위젯이 사라졌을때 수행되는 함수
-    _heightController.dispose();
-    _weightController.dispose();
-    super.dispose();
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Receive User Information"),
+        title: Text('Flutter Demo Home Page'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Height',
-                ),
-                controller: _heightController,
-                keyboardType: TextInputType.number, //키보드 타임 숫자로하기
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Counter:',
+            ),
+            Text(
+              '$_counter',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
-              Container(
-                height: 20,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Weight',
-                ),
-                controller: _weightController,
-              ),
-              Container(
-                height: 20,
-              ),
-              Text(
-                _obesity,
-                style: TextStyle(fontSize: 20),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    //아무것도 넣지 않으면 그냥 다시 그리기만한다
-                    var heightValue = double.parse(_heightController.text.trim());
-                    var weightValue = double.parse(_weightController.text.trim());
-                    if (weightValue/(heightValue * heightValue) > 25){
-                      _obesity = "Obesity";
-                    } else{
-                      _obesity = "Normal";
-                    }
-                  });
-                },
-                child: Text("Enter"),
-              )
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
       ),
     );
   }
